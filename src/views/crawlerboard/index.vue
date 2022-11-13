@@ -7,7 +7,7 @@
         v-if="!crawVisible"
       />
       <el-button type="primary" @click="handleCrawler(inputData)">
-        开始舆情爬虫
+        开始爬虫
       </el-button>
     </div>
     {{ list }}
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { crawlerWB, getProductList } from "@/api/crawler.js";
+import { crawler, getProductList } from "@/api/crawler.js";
 // import clip from "@/utils/clipboard"; // use clipboard directly
 // import clipboard from "@/directive/clipboard/index.js"; // use clipboard by v-directive
 
@@ -60,10 +60,10 @@ export default {
       getProductList({ product }).then((res) => {
         // list = res.data;
         if (!res.data.length) {
-          crawlerWB({ product }).then((res) => {
+          crawler({ product }).then((res) => {
             console.log("res", res);
             // 路由跳转到商品详情页
-            this.$router.push({ path: "/comments", query: {product, through: 'comments'} });
+            this.$router.push({ path: "/detail", query: {product, through: 'product'} });
           });
         }
       });

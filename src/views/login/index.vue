@@ -48,7 +48,6 @@
             autocomplete="on"
             @keyup.native="checkCapslock"
             @blur="capsTooltip = false"
-            @keyup.enter.native="handleLogin"
           />
           <span class="show-pwd" @click="showPwd">
             <svg-icon
@@ -140,18 +139,18 @@ export default {
       otherQuery: {},
     };
   },
-  watch: {
-    $route: {
-      handler: function (route) {
-        const query = route.query;
-        if (query) {
-          this.redirect = query.redirect;
-          this.otherQuery = this.getOtherQuery(query);
-        }
-      },
-      immediate: true,
-    },
-  },
+  // watch: {
+  //   $route: {
+  //     handler: function (route) {
+  //       const query = route.query;
+  //       if (query) {
+  //         this.redirect = query.redirect;
+  //         this.otherQuery = this.getOtherQuery(query);
+  //       }
+  //     },
+  //     immediate: true,
+  //   },
+  // },
   created() {
     // window.addEventListener('storage', this.afterQRScan)
   },
@@ -185,13 +184,22 @@ export default {
         if (valid) {
           this.loading = true;
           this.$store
-            .dispatch("user/login", this.loginForm)
+            .dispatch("user/toLogin", this.loginForm)
             .then(() => {
+              // console.log('ccccc')
+              console.log('this.$router', this.$router);
               this.$router.push({
-                path: this.redirect || "/",
-                query: this.otherQuery,
+                path: "/clipboard/index",
+                // name: 'Dashboard',
+                // query: this.otherQuery,
               });
+              // this.$router.push({
+              //   path: this.redirect || "/",
+              //   query: this.otherQuery,
+              // });
               this.loading = false;
+              console.log('aaaa')
+
             })
             .catch(() => {
               this.loading = false;

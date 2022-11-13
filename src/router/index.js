@@ -39,37 +39,52 @@ import nestedRouter from "./modules/nested";
  * all roles can be accessed
  */
 export const constantRoutes = [
-  {
-    path: "/redirect",
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: "/redirect/:path(.*)",
-        component: () => import("@/views/redirect/index"),
-      },
-    ],
-  },
+  // {
+  //   path: "/redirect",
+  //   component: Layout,
+  //   hidden: true,
+  //   children: [
+  //     {
+  //       path: "/redirect/:path(.*)",
+  //       component: () => import("@/views/redirect/index"),
+  //     },
+  //   ],
+  // },
   {
     path: "/login",
     component: () => import("@/views/login/index"),
     hidden: true,
   },
   {
-    path: "/auth-redirect",
-    component: () => import("@/views/login/auth-redirect"),
+    path: "/detail",
+    component: () => import("@/views/detail/index"),
     hidden: true,
   },
   {
-    path: "/404",
-    component: () => import("@/views/error-page/404"),
+    path: "/comments",
+    component: () => import("@/views/comments/index"),
     hidden: true,
   },
   {
-    path: "/401",
-    component: () => import("@/views/error-page/401"),
+    path: "/all",
+    component: () => import("@/views/all/index"),
     hidden: true,
   },
+  // {
+  //   path: "/auth-redirect",
+  //   component: () => import("@/views/login/auth-redirect"),
+  //   hidden: true,
+  // },
+  // {
+  //   path: "/404",
+  //   component: () => import("@/views/error-page/404"),
+  //   hidden: true,
+  // },
+  // {
+  //   path: "/401",
+  //   component: () => import("@/views/error-page/401"),
+  //   hidden: true,
+  // },
   {
     path: "/",
     component: Layout,
@@ -84,6 +99,18 @@ export const constantRoutes = [
     ],
   },
   {
+    path: "/crawlerboard",
+    component: Layout,
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/crawlerboard/index"),
+        name: "crawlerboardDemo",
+        meta: { title: "商品爬虫", icon: "link" },
+      },
+    ],
+  },
+  {
     path: "/clipboard",
     component: Layout,
     children: [
@@ -91,7 +118,7 @@ export const constantRoutes = [
         path: "index",
         component: () => import("@/views/clipboard/index"),
         name: "ClipboardDemo",
-        meta: { title: "商品管理", icon: "clipboard" },
+        meta: { title: "舆情爬虫", icon: "clipboard" },
       },
     ],
   },
@@ -136,6 +163,7 @@ export const constantRoutes = [
   },
 ];
 
+export const asyncRoutes = constantRoutes
 /**
  * asyncRoutes
  * the routes that need to be dynamically loaded based on user roles
